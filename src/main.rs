@@ -19,9 +19,7 @@ fn michael() {
     let mut x = five();
 
     x = plus_one(x);
-
-
-    println!("The value of the element at index {index} is : {element}, {x}");
+    for_loop();println!("The value of the element at index {index} is : {element}, {x}");
 }
 
 fn five() -> i32 {
@@ -29,5 +27,15 @@ fn five() -> i32 {
 }
 
 fn plus_one(x: i32) -> i32 {
+    if x > 5 {
+        println!("x value {x}, is not allow on this function call");
+    }
     x + 1
+}
+
+fn for_loop() {
+    const ARRAY: [i32; 6] = [3, 2, 3, 42, 3, 23, ];
+    for a in ARRAY {
+        println!("the value of this array is {a}");
+    }
 }
