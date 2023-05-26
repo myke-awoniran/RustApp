@@ -7,7 +7,7 @@ fn main() {
 
 
 fn michael() {
-    let a = [1, 2, 3, 4, 5, 6];
+    let a: [i32; 6] = [15, 23, 35, 42, 53, 69];
     println!("Pls enter an array index");
     let mut index = String::new();
 
@@ -16,6 +16,18 @@ fn michael() {
     let index: usize = index.trim().parse().expect("index entered was not a number");
 
     let element = a[index];
+    let mut x = five();
 
-    println!("The value of the element at index {index} is : {element}");
+    x = plus_one(x);
+
+
+    println!("The value of the element at index {index} is : {element}, {x}");
+}
+
+fn five() -> i32 {
+    5
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
