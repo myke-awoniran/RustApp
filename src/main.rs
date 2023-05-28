@@ -50,7 +50,8 @@ fn for_loop() {
     }
 }
 
-fn takes_ownership(some_string: String) { // some_string comes into scope
+fn takes_ownership(some_string: String) {
+// some_string comes into scope
     println!("{}", some_string);
 }
 
