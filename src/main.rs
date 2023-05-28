@@ -1,7 +1,9 @@
 use std::io;
+use std::net::TcpListener;
 
-fn main() {
+async fn main() {
     println!("Hello, world!");
+    let listener = TcpListener::bind("localhost:8080").await.unwrap();
     michael()
 }
 
