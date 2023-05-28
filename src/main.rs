@@ -16,26 +16,26 @@ fn michael() {
     let index: usize = index.trim().parse().expect("index entered was not a number");
 
     let element = a[index];
-    // let mut x = five();
+    let mut x = five();
 
-    // x = plus_one(x);
-    // for_loop();
+    x = plus_one(x);
+    for_loop();
     raii();
     takes_ownership(String::from("Hello micheal"));
     makes_copy(3);
     println!("The value of the element at index {index} is : {element}");
 }
 
-// fn five() -> i32 {
-//     5
-// }
+fn five() -> i32 {
+    5
+}
 
-// fn plus_one(x: i32) -> i32 {
-//     if x > 5 {
-//         println!("x value {x}, is not allow on this function call");
-//     }
-//     x + 1
-// }
+fn plus_one(x: i32) -> i32 {
+    if x > 5 {
+        println!("x value {x}, is not allow on this function call");
+    }
+    x + 1
+}
 
 fn raii() {
     let first_name = String::from("micheal");
@@ -43,12 +43,12 @@ fn raii() {
     println!("firstname is {}", last_name);
 }
 
-// fn for_loop() {
-//     const ARRAY: [i32; 6] = [3, 2, 3, 42, 3, 23, ];
-//     for a in ARRAY {
-//         println!("the value of this array is {a}");
-//     }
-// }
+fn for_loop() {
+    const ARRAY: [i32; 6] = [3, 2, 3, 42, 3, 23, ];
+    for a in ARRAY {
+        println!("the value of this array is {a}");
+    }
+}
 
 fn takes_ownership(some_string: String) { // some_string comes into scope
     println!("{}", some_string);
