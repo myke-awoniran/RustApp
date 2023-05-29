@@ -1,9 +1,10 @@
 use std::io;
 use std::net::TcpListener;
 
-async fn main() {
+fn main() {
     println!("Hello, world!");
-    let listener = TcpListener::bind("localhost:8080").await.unwrap();
+    let listener = TcpListener::bind("localhost:8080").unwrap();
+    let socket = listener.accept().unwrap();
     michael()
 }
 
@@ -18,9 +19,9 @@ fn michael() {
     let index: usize = index.trim().parse().expect("index entered was not a number");
 
     let element = a[index];
-    let mut x = five();
+    // let mut x = five();
 
-    x = plus_one(x);
+    // x = plus_one(x);
     for_loop();
     raii();
     takes_ownership(String::from("Hello micheal"));
