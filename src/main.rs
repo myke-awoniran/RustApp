@@ -1,65 +1,27 @@
-use std::io;
-use std::net::TcpListener;
+use hyper::service::{make_service_fn, service_fn};
+use hyper::{Body, Request, Response, Server};
 
-fn main() {
-    println!("Hello, world!");
-    let listener = TcpListener::bind("localhost:8080").unwrap();
-    let socket = listener.accept().unwrap();
-    michael()
+async fn handle_request(_: Request<Body>) -> Result<Response<Body>, hyper::Error> {
+    // Handle the incoming request here
+    let response_body = "Hello, World!";
+    let response = Response::new(Body::from(response_body));
+
+    Ok(response)
 }
 
+#[tokio::main]
+async fn main() {
+    // Create a service from the `handle_request` function
+    let make_svc = make_service_fn(|_conn| {
+        async { Ok::<_, hyper::Error>(service_fn(handle_request)) }
+    });
 
-fn michael() {
-    let a: [i32; 6] = [15, 23, 35, 42, 53, 69];
-    println!("Pls enter an array index");
-    let mut index = String::new();
+    // Create a TCP listener bound to localhost on port 3000
+    let addr = ([127, 0, 0, 1], 3000).into();
+    let server = Server::bind(&addr).serve(make_svc);
 
-    io::stdin().read_line(&mut index).expect("failed to read line");
-
-    let index: usize = index.trim().parse().expect("index entered was not a number");
-
-    let element = a[index];
-    // let mut x = five();
-
-    // x = plus_one(x);
-    for_loop();
-    raii();
-    takes_ownership(String::from("Hello micheal"));
-    makes_copy(3);
-    println!("The value of the element at index {index} is : {element}");
-}
-
-fn five() -> i32 {
-    5
-}
-
-fn plus_one(x: i32) -> i32 {
-    if x > 5 {
-        println!("x value {x}, is not allow on this function call");
-    }
-    x + 1
-}
-
-fn raii() {
-    let first_name = String::from("micheal");
-    let last_name = first_name;
-    println!("firstname is {}", last_name);
-}
-
-fn for_loop() {
-    const ARRAY: [i32; 6] = [3, 2, 3, 42, 3, 23, ];
-    for a in ARRAY {
-        println!("the value of this array is {a}");
+    // Start the server
+    if let Err(e) = server.await {
+        eprintln!("server error: {}", e);
     }
 }
-
-fn takes_ownership(some_string: String) {
-// some_string comes into scope
-    println!("{}", some_string);
-}
-
-// Here, some_string goes out of scope and `drop` is called. The backing
-// memory is freed.
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
-    println!("{}", some_integer);
-} // Here, some_integer goes out of scope. Nothing special happens.
